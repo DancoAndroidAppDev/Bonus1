@@ -6,7 +6,7 @@
                 android:layout_height="match_parent">
     <ImageView
         android:id="@+id/image"
-        android:layout_width="@dimen/image_size"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/image_size"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/grid_item_vertical_margin"
+        android:layout_marginLeft="@dimen/grid_view_horizontalSpacing"
         android:layout_below="@id/image"
         android:ellipsize="end"
         android:maxLines="1"

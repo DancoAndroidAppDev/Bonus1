@@ -4,10 +4,21 @@
              android:layout_height="match_parent"
              tools:context="com.example.danco.bonus1.fragment.GridViewFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <GridView
+        android:id="@+id/grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
+        android:columnWidth="@dimen/grid_columnWidth"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/grid_view_horizontalSpacing"
+        android:numColumns="@integer/numColumns"
+        android:paddingEnd="@dimen/grid_view_horizontalSpacing"
+        android:paddingLeft="@dimen/grid_view_horizontalSpacing"
+        android:paddingRight="@dimen/grid_view_horizontalSpacing"
+        android:paddingStart="@dimen/grid_view_horizontalSpacing"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/grid_view_verticalSpacing"
+        tools:listitem="@layout/grid_item" />
 
 </FrameLayout>

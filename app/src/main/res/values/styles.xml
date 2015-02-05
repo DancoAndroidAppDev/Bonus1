@@ -1,8 +1,14 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!-- Since providing version for API 14-20 using Holo parent -->
+    <style name="RedButtonStyle" parent="android:Widget.Holo.Light.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <!-- Using background from Android asset studio -->
+        <item name="android:background">@android:color/holo_red_dark</item>
+    </style>
+
+    <style name="TextAppearanceBody1Inverse" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
     </style>
 
 </resources>

@@ -23,12 +23,13 @@ public class GridAdapter extends ArrayAdapter<String> {
 
     public GridAdapter(Context context, List<String> objects) {
         super(context, 0, objects);
+        numColumns = 2;
     }
 
     @Override
     public int getViewTypeCount() {
         // Two types of views if only 1 column
-        return numColumns;
+        return 1;
     }
 
     @Override
@@ -43,9 +44,10 @@ public class GridAdapter extends ArrayAdapter<String> {
         View view = convertView;
 
         if (view == null) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid, parent, false);
-            // Using a view holder as adapter views are recycled. Only need to create a view if the
-            // convert view is null
+            view = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.grid_item, parent, false);
+            // Using a view holder as adapter views are recycled. Only
+            // need to create a view if the convert view is null
             view.setTag(new ViewHolder(view));
         }
 

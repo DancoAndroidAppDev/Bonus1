@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/gridViewFragment"
+        android:name="com.example.danco.bonus1.fragment.GridViewFragment"
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_grid_view"
+        />
+
+    <View
+        android:id="@+id/fragmentDivider"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="?android:listDivider"/>
+
+    <FrameLayout
+        android:id="@+id/gridDetailContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

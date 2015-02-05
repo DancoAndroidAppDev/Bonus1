@@ -1,13 +1,45 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.example.danco.bonus1.fragment.GridDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/gridItemName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:textColor="@android:color/black"
+        />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/gridItemDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="item description"
+        android:layout_below="@id/gridItemName"
+        android:layout_marginTop="16dp"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <CheckedTextView
+        android:id="@+id/isFavoriteGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkMark="?android:attr/listChoiceIndicatorSingle"
+        android:layout_below="@id/gridItemDescription"
+        android:clickable="true"
+        android:hint="Favorite"/>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/isFavoriteGrid"
+        android:text="Submit"/>
+
+
+</RelativeLayout>
