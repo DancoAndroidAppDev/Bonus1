@@ -11,8 +11,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/grid_item_vertical_margin"
-        android:layout_marginLeft="@dimen/component_margin"
-        android:layout_marginStart="@dimen/component_margin"
+        android:layout_marginLeft="@dimen/grid_view_horizontalSpacing"
+        android:layout_marginStart="@dimen/grid_view_horizontalSpacing"
         android:layout_marginTop="@dimen/grid_item_vertical_margin"
         android:src="@android:color/holo_green_dark"/>
 
