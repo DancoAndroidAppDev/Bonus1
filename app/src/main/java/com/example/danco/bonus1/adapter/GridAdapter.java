@@ -19,11 +19,9 @@ public class GridAdapter extends ArrayAdapter<String> {
 
     // Per docs, first view type must start at 0
     private static final int DEFAULT_VIEW_TYPE = 0;
-    private int numColumns = 2;
 
     public GridAdapter(Context context, List<String> objects) {
         super(context, 0, objects);
-        numColumns = 2;
     }
 
     @Override

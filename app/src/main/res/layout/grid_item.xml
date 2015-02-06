@@ -22,11 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/grid_item_vertical_margin"
         android:layout_marginLeft="@dimen/grid_view_horizontalSpacing"
+        android:layout_marginStart="@dimen/grid_view_horizontalSpacing"
         android:layout_below="@id/image"
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:text="Grid Item 1"/>
-
+        tools:text="Grid Item"/>
 
 </RelativeLayout>

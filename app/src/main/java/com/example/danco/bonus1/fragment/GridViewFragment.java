@@ -1,16 +1,13 @@
 package com.example.danco.bonus1.fragment;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.example.danco.bonus1.R;
 import com.example.danco.bonus1.adapter.GridAdapter;
@@ -29,7 +26,6 @@ import java.util.List;
  */
 public class GridViewFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private static final String GRID_NAME = "gridName";
     private static final String ARG_VALUES = "initialValues";
     private static final String ARGS_CHOICE_MODE = "gridChoiceMode";
     private static final String STATE_VALUES = GridViewFragment.class.getSimpleName() + ".values";
@@ -40,7 +36,6 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
 
     private int gridChoiceMode = GridView.CHOICE_MODE_NONE;
 
-    private String gridName;
     private int selectedItemIndex = 0;
 
     private GridViewFragmentListener listener;
@@ -57,7 +52,6 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
     public interface GridViewFragmentListener {
         public void onFragmentInteraction(final String gridName);
     }
-
 
 
     /**
@@ -136,6 +130,7 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
 
         holder.grid.setOnItemClickListener(this);
 
+        //shouldn't ever be null... probably don't need this test
         if (data != null) {
             configureAdapter(holder.grid);
         }
@@ -185,7 +180,6 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
 
         ViewHolder(View view) {
             grid = (GridView) view.findViewById(R.id.grid);
-            grid.setEmptyView(view.findViewById(R.id.title));
         }
     }
 }
