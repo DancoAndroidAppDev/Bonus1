@@ -3,30 +3,33 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingEnd="@dimen/grid_view_horizontalSpacing"
+                android:paddingLeft="@dimen/grid_view_horizontalSpacing"
+                android:paddingRight="@dimen/grid_view_horizontalSpacing"
+                android:paddingStart="@dimen/grid_view_horizontalSpacing">
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/image_size"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/grid_item_vertical_margin"
-        android:layout_marginLeft="@dimen/grid_view_horizontalSpacing"
-        android:layout_marginStart="@dimen/grid_view_horizontalSpacing"
+        android:layout_marginLeft="@dimen/component_margin"
+        android:layout_marginStart="@dimen/component_margin"
         android:layout_marginTop="@dimen/grid_item_vertical_margin"
+        android:layout_marginBottom="@dimen/grid_item_vertical_margin"
         android:src="@android:color/holo_green_dark"/>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_item_vertical_margin"
-        android:layout_marginLeft="@dimen/grid_view_horizontalSpacing"
-        android:layout_marginStart="@dimen/grid_view_horizontalSpacing"
-        android:layout_below="@id/image"
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:text="Grid Item"/>
+        tools:text="Grid Item"
+        android:layout_alignBottom="@+id/image"
+        android:layout_alignLeft="@+id/image"
+        android:layout_alignStart="@+id/image"/>
 
 </RelativeLayout>

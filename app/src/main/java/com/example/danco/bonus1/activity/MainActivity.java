@@ -1,16 +1,20 @@
 package com.example.danco.bonus1.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 
 import com.example.danco.bonus1.R;
+import com.example.danco.bonus1.fragment.GridDetailFragment;
 import com.example.danco.bonus1.fragment.GridViewFragment;
 
 import java.util.ArrayList;
@@ -21,7 +25,8 @@ public class MainActivity extends ActionBarActivity
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String STATE_SELECTED_POSITION = "selectedPosition";
-    private static final String FRAG_NAME = "gridFragment";
+    private static final String DETAIL_FRAGMENT = "detailFragment";
+    private static final int UPDATE_DETAILS = 200;
 
     private boolean haveDetailFragment = false;
     private int selectedPosition = 1;
@@ -42,48 +47,50 @@ public class MainActivity extends ActionBarActivity
 
         haveDetailFragment = findViewById(R.id.gridDetailContainer) != null;
 
+        GridViewFragment fragment = (GridViewFragment)
+                getSupportFragmentManager().findFragmentById(R.id.gridViewFragment);
+        fragment.setHighlightList(haveDetailFragment);
+
+        if (savedInstanceState == null) {
+            fragment.setValues(data);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.topLevelToolBar);
         setSupportActionBar(toolbar);
 
         if (savedInstanceState != null) {
             selectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION, selectedPosition);
-        } else {
-            Fragment fragment = GridViewFragment.newInstance(data, true);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.gridViewFragment, fragment, FRAG_NAME)
-                    .commit();
         }
     }
 
 
     @Override
-    public void onFragmentInteraction(final String gridName) {
+    public void onGridItemSelected(final String gridName) {
         //start detail activity for provided name
         Log.i(TAG, String.format("Grid item named: %s clicked", gridName));
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (haveDetailFragment) {
+            GridDetailFragment fragment = GridDetailFragment.newInstance(gridName);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.gridDetailContainer, fragment, DETAIL_FRAGMENT)
+                    .commit();
+        } else {
+            startActivityForResult(GridDetailActivity.buildIntent(this, gridName), UPDATE_DETAILS);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == UPDATE_DETAILS && data != null) {
+                // not sure what to do with the info from the detail activity...
+                Log.i(TAG, String.format("Received description: '%s' and favorite state = %s",
+                        data.getStringExtra(GridDetailActivity.EXTRA_DESCRIPTION),
+                        data.getBooleanExtra(GridDetailActivity.EXTRA_FAVORITE, false)));
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

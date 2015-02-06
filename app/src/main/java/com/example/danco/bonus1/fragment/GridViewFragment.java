@@ -50,7 +50,7 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface GridViewFragmentListener {
-        public void onFragmentInteraction(final String gridName);
+        public void onGridItemSelected(final String gridName);
     }
 
 
@@ -145,6 +145,33 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
     }
 
 
+    public void setValues(List<String> values) {
+        if (values == null || values.size() == 0) {
+            throw new IllegalArgumentException("values must be 1 or more items long");
+        }
+
+        // Ensure values are not null.
+        data.clear();
+        data.addAll(values);
+
+        ViewHolder holder = getViewHolder();
+        if (holder != null) {
+            configureAdapter(holder.grid);
+        }
+    }
+
+
+    public void setHighlightList(boolean multiFragment) {
+        gridChoiceMode = multiFragment ? GridView.CHOICE_MODE_SINGLE : GridView.CHOICE_MODE_NONE;
+
+        // If view not initialized this will happen later.
+        ViewHolder holder = getViewHolder();
+        if (holder == null || data == null) return;
+
+        holder.grid.setChoiceMode(gridChoiceMode);
+    }
+
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -165,7 +192,7 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
         selectedItemIndex = position;
         GridView grid = (GridView) parent;
         grid.setItemChecked(position, true);
-        listener.onFragmentInteraction(data.get(position));
+        listener.onGridItemSelected(data.get(position));
     }
 
 
