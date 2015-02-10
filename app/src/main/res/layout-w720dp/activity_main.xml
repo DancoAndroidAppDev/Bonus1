@@ -14,23 +14,30 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlayDarkActionBar"/>
 
-    <fragment
-        android:id="@+id/gridViewFragment"
-        android:name="com.example.danco.bonus1.fragment.GridViewFragment"
-        android:layout_width="360dp"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_grid_view"
-        />
-
-    <View
-        android:id="@+id/fragmentDivider"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="?android:listDivider"/>
-
-    <FrameLayout
-        android:id="@+id/gridDetailContainer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <fragment
+            android:id="@+id/gridViewFragment"
+            android:name="com.example.danco.bonus1.fragment.GridViewFragment"
+            android:layout_width="360dp"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_grid_view"
+            />
+
+        <View
+            android:id="@+id/fragmentDivider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:listDivider"/>
+
+        <FrameLayout
+            android:id="@+id/gridDetailContainer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 </LinearLayout>

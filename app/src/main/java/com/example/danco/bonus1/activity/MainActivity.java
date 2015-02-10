@@ -21,7 +21,8 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity
-        implements GridViewFragment.GridViewFragmentListener {
+        implements GridViewFragment.GridViewFragmentListener,
+        GridDetailFragment.GridDetailListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String STATE_SELECTED_POSITION = "selectedPosition";
@@ -61,6 +62,18 @@ public class MainActivity extends ActionBarActivity
         if (savedInstanceState != null) {
             selectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION, selectedPosition);
         }
+
+        if (haveDetailFragment) {
+            GridDetailFragment frag = (GridDetailFragment)
+                    getSupportFragmentManager().findFragmentByTag(DETAIL_FRAGMENT);
+            if (frag == null) {
+                frag = GridDetailFragment.newInstance(data.get(0));
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.gridDetailContainer, frag, DETAIL_FRAGMENT)
+                        .commit();
+            }
+        }
     }
 
 
@@ -92,5 +105,16 @@ public class MainActivity extends ActionBarActivity
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    public void onSubmitDetails(String name, String description, boolean isFavorite) {
+        Log.i(TAG, "onSubmitDetails");
+        Intent data = new Intent();
+        data.putExtra(GridDetailActivity.EXTRA_NAME,
+                getIntent().getExtras().getString(GridDetailActivity.EXTRA_NAME));
+        data.putExtra(GridDetailActivity.EXTRA_DESCRIPTION, description);
+        data.putExtra(GridDetailActivity.EXTRA_FAVORITE, isFavorite);
     }
 }

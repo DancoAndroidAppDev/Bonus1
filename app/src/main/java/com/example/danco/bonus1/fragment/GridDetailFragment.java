@@ -3,6 +3,7 @@ package com.example.danco.bonus1.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,13 @@ import com.example.danco.bonus1.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link com.example.danco.bonus1.fragment.GridDetailFragment.OnSubmitDetailsListener} interface
+ * {@link com.example.danco.bonus1.fragment.GridDetailFragment.GridDetailListener} interface
  * to handle interaction events.
  * Use the {@link GridDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class GridDetailFragment extends Fragment implements View.OnClickListener {
+    private static final String TAG = GridDetailFragment.class.getSimpleName() + ".tag";
     private static final String ARG_NAME = "name";
     private static final String ARG_DESCRIPTION = "description";
     private static final String ARG_FAVORITE = "favorite";
@@ -30,7 +32,7 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
     private String description;
     private boolean isFavorite;
 
-    private OnSubmitDetailsListener listener;
+    private GridDetailListener listener;
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -41,8 +43,8 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnSubmitDetailsListener {
-        public void onSubmitDetails(String description, boolean isFavorite);
+    public interface GridDetailListener {
+        public void onSubmitDetails(String name, String description, boolean isFavorite);
     }
 
 
@@ -123,9 +125,10 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
         }
 
         if (listener != null) {
+            name = getViewHolder().nameView.getText().toString();
             description = getViewHolder().descriptionView.getText().toString();
             isFavorite = getViewHolder().isFavorite.isChecked();
-            listener.onSubmitDetails(description, isFavorite);
+            listener.onSubmitDetails(name, description, isFavorite);
         }
     }
 
@@ -153,8 +156,10 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(ARG_DESCRIPTION, description);
-        outState.putBoolean(ARG_FAVORITE, isFavorite);
+        ViewHolder holder = getViewHolder();
+        outState.putString(ARG_NAME, holder.nameView.getText().toString());
+        outState.putString(ARG_DESCRIPTION, holder.descriptionView.getText().toString());
+        outState.putBoolean(ARG_FAVORITE, holder.isFavorite.isChecked());
     }
 
 
@@ -162,8 +167,14 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
+            name = savedInstanceState.getString(ARG_NAME);
             description = savedInstanceState.getString(ARG_DESCRIPTION);
             isFavorite = savedInstanceState.getBoolean(ARG_FAVORITE);
+            View view = getView();
+            //shouldn't be null, but just in case...
+            if (view != null) {
+                updateView((ViewHolder) view.getTag());
+            }
         }
     }
 
@@ -183,7 +194,7 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            listener = (OnSubmitDetailsListener) activity;
+            listener = (GridDetailListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnSubmitDetailsListener");

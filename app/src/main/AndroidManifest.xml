@@ -24,6 +24,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.danco.bonus1.activity.MainActivity" />
         </activity>
+        <activity
+            android:name=".activity.ConfirmationActivity"
+            android:label="@string/title_activity_confirmation"
+            android:parentActivityName=".activity.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.danco.bonus1.activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

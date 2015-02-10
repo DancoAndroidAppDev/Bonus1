@@ -14,7 +14,7 @@ import com.example.danco.bonus1.R;
 import com.example.danco.bonus1.fragment.GridDetailFragment;
 
 public class GridDetailActivity extends ActionBarActivity
-        implements GridDetailFragment.OnSubmitDetailsListener{
+        implements GridDetailFragment.GridDetailListener {
 
     public static final String EXTRA_NAME = GridDetailActivity.class.getSimpleName() + ".name";
     public static final String EXTRA_DESCRIPTION = GridDetailActivity.class.getSimpleName() + ".description";
@@ -57,7 +57,7 @@ public class GridDetailActivity extends ActionBarActivity
 
 
     @Override
-    public void onSubmitDetails(String description, boolean isFavorite) {
+    public void onSubmitDetails(String name, String description, boolean isFavorite) {
         Intent data = new Intent();
         data.putExtra(EXTRA_NAME, getIntent().getExtras().getString(EXTRA_NAME));
         data.putExtra(EXTRA_DESCRIPTION, description);

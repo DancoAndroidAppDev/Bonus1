@@ -6,5 +6,11 @@
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_grid_detail">GridDetailActivity</string>
+    <string name="title_activity_confirmation">ConfirmationActivity</string>
+    <string name="gridNameText">Grid Name</string>
+    <string name="empty"/>
+    <string name="gridNameLabelText">Grid Name</string>
+    <string name="gridDescriptionLabelText">Grid Description</string>
+    <string name="gridFavoriteLabelText">Grid Favorite</string>
 
 </resources>
