@@ -38,7 +38,7 @@ public class GridDetailActivity extends ActionBarActivity
             return;
         }
 
-        // phone, or display >720dp wide
+        // phone, or display <720dp wide
         setContentView(R.layout.activity_grid_detail);
 
         setSupportActionBar((Toolbar) findViewById(R.id.gridDetailToolBar));
@@ -58,12 +58,8 @@ public class GridDetailActivity extends ActionBarActivity
 
     @Override
     public void onSubmitDetails(String name, String description, boolean isFavorite) {
-        Intent data = new Intent();
-        data.putExtra(EXTRA_NAME, getIntent().getExtras().getString(EXTRA_NAME));
-        data.putExtra(EXTRA_DESCRIPTION, description);
-        data.putExtra(EXTRA_FAVORITE, isFavorite);
-        setResult(Activity.RESULT_OK, data);
-        finish();
+        Intent intent = ConfirmationActivity.buildIntent(this, name, description, isFavorite);
+        startActivity(intent);
     }
 
 

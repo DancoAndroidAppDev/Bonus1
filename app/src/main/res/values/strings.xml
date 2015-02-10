@@ -9,8 +9,13 @@
     <string name="title_activity_confirmation">ConfirmationActivity</string>
     <string name="gridNameText">Grid Name</string>
     <string name="empty"/>
-    <string name="gridNameLabelText">Grid Name</string>
-    <string name="gridDescriptionLabelText">Grid Description</string>
-    <string name="gridFavoriteLabelText">Grid Favorite</string>
+    <string name="gridNameLabelText">Grid Name:</string>
+    <string name="gridDescriptionLabelText">Grid Description:</string>
+    <string name="gridFavoriteLabelText">Grid Favorite:</string>
+    <string name="preferenceSummary">Grid preference summary</string>
+    <string name="preferenceTitle">Preference title</string>
+    <string name="gridDescription">Grid view description</string>
+    <string name="gridDescriptionTitle">Grid description title</string>
+    <string name="okButtonText">OK</string>
 
 </resources>

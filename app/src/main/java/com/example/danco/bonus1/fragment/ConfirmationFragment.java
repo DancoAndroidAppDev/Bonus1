@@ -2,7 +2,7 @@ package com.example.danco.bonus1.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +15,13 @@ import com.example.danco.bonus1.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link com.example.danco.bonus1.fragment.ConfirmationFragment.ConfirmationFragmentListener} interface
- * to handle interaction events.
+ * {@link com.example.danco.bonus1.fragment.ConfirmationFragment.ConfirmationFragmentListener}
+ * interface to handle interaction events.
  * Use the {@link ConfirmationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ConfirmationFragment extends Fragment implements View.OnClickListener {
+public class ConfirmationFragment extends Fragment
+        implements View.OnClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_NAME = "name";
     private static final String ARG_DESC = "description";
@@ -43,7 +44,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
      */
     public interface ConfirmationFragmentListener {
         // TODO: Update argument type and name
-        public void onOkClicked(String name, String desc, boolean isFavorite);
+        public void onConfirmationOkClicked(String name, String desc, boolean isFavorite);
     }
 
 
@@ -84,7 +85,8 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_confirmation, container, false);
@@ -97,6 +99,10 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
         ViewHolder holder = new ViewHolder(view);
         view.setTag(holder);
 
+        holder.nameView.setText(name);
+        holder.descriptionView.setText(description);
+        holder.isFavoriteView.setText(isFavorite ? "Yes" : "No");
+
         holder.okButton.setOnClickListener(this);
     }
 
@@ -104,7 +110,7 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         Toast.makeText(getActivity(), "User clicked ok", Toast.LENGTH_SHORT).show();
-        listener.onOkClicked(name, description, isFavorite);
+        listener.onConfirmationOkClicked(name, description, isFavorite);
     }
 
 

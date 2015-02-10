@@ -124,10 +124,11 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
             return;
         }
 
+        name = getViewHolder().nameView.getText().toString();
+        description = getViewHolder().descriptionView.getText().toString();
+        isFavorite = getViewHolder().isFavorite.isChecked();
+
         if (listener != null) {
-            name = getViewHolder().nameView.getText().toString();
-            description = getViewHolder().descriptionView.getText().toString();
-            isFavorite = getViewHolder().isFavorite.isChecked();
             listener.onSubmitDetails(name, description, isFavorite);
         }
     }

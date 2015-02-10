@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity
     private static final String STATE_SELECTED_POSITION = "selectedPosition";
     private static final String DETAIL_FRAGMENT = "detailFragment";
     private static final int UPDATE_DETAILS = 200;
+    private static final int CONFIRM_DETAILS = 300;
 
     private boolean haveDetailFragment = false;
     private int selectedPosition = 1;
@@ -102,6 +103,8 @@ public class MainActivity extends ActionBarActivity
                 Log.i(TAG, String.format("Received description: '%s' and favorite state = %s",
                         data.getStringExtra(GridDetailActivity.EXTRA_DESCRIPTION),
                         data.getBooleanExtra(GridDetailActivity.EXTRA_FAVORITE, false)));
+            } else if (requestCode == CONFIRM_DETAILS) {
+                Log.i(TAG, "User confirmed details");
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -111,10 +114,8 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onSubmitDetails(String name, String description, boolean isFavorite) {
         Log.i(TAG, "onSubmitDetails");
-        Intent data = new Intent();
-        data.putExtra(GridDetailActivity.EXTRA_NAME,
-                getIntent().getExtras().getString(GridDetailActivity.EXTRA_NAME));
-        data.putExtra(GridDetailActivity.EXTRA_DESCRIPTION, description);
-        data.putExtra(GridDetailActivity.EXTRA_FAVORITE, isFavorite);
+        Intent confirm = ConfirmationActivity.buildIntent(this, name, description, isFavorite);
+
+        startActivityForResult(confirm, CONFIRM_DETAILS);
     }
 }

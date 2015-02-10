@@ -19,11 +19,11 @@
         android:id="@+id/gridItemDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="item description"
+        android:hint="short description of the item"
         android:layout_below="@id/gridItemName"
         android:layout_marginTop="16dp"
-        android:inputType="textMultiLine"
-        android:minLines="3"
+        android:inputType="textShortMessage"
+        android:imeOptions="actionDone"
         android:textAppearance="?android:textAppearanceMedium"/>
 
     <CheckedTextView
