@@ -29,6 +29,15 @@ public class GridDetailActivity extends ActionBarActivity
     }
 
 
+    public static Intent buildIntent(Context context, String gridName, String desc, boolean isFavorite) {
+        Intent intent = new Intent(context, GridDetailActivity.class);
+        intent.putExtra(EXTRA_NAME, gridName);
+        intent.putExtra(EXTRA_DESCRIPTION, desc);
+        intent.putExtra(EXTRA_FAVORITE, isFavorite);
+        return intent;
+    }
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -58,8 +67,8 @@ public class GridDetailActivity extends ActionBarActivity
 
     @Override
     public void onSubmitDetails(String name, String description, boolean isFavorite) {
-        Intent intent = ConfirmationActivity.buildIntent(this, name, description, isFavorite);
-        startActivity(intent);
+        MainActivity main = new MainActivity();
+        main.onSubmitDetails(name, description, isFavorite);
     }
 
 

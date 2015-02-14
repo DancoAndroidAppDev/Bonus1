@@ -24,9 +24,10 @@ import com.example.danco.bonus1.R;
  */
 public class GridDetailFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = GridDetailFragment.class.getSimpleName() + ".tag";
-    private static final String ARG_NAME = "name";
-    private static final String ARG_DESCRIPTION = "description";
-    private static final String ARG_FAVORITE = "favorite";
+
+    public static final String ARG_NAME = "name";
+    public static final String ARG_DESCRIPTION = "description";
+    public static final String ARG_FAVORITE = "favorite";
 
     private String name;
     private String description;
@@ -69,7 +70,9 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
      * @param favoriteState true if indicated as a favorite.
      * @return A new instance of fragment GridDetailFragment.
      */
-    public static GridDetailFragment newInstance(String name, String description, boolean favoriteState) {
+    public static GridDetailFragment newInstance(String name,
+                                                 String description,
+                                                 boolean favoriteState) {
         GridDetailFragment fragment = new GridDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_NAME, name);
@@ -92,6 +95,8 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
             name = getArguments().getString(ARG_NAME);
             description = getArguments().getString(ARG_DESCRIPTION);
             isFavorite = getArguments().getBoolean(ARG_FAVORITE);
+            Log.i(TAG + ".onCreate", String.format("Name = %s, desc = %s, favorite = %s",
+                            name, description, isFavorite));
         }
     }
 
@@ -156,11 +161,20 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         ViewHolder holder = getViewHolder();
-        outState.putString(ARG_NAME, holder.nameView.getText().toString());
-        outState.putString(ARG_DESCRIPTION, holder.descriptionView.getText().toString());
-        outState.putBoolean(ARG_FAVORITE, holder.isFavorite.isChecked());
+
+        String name = holder.nameView.getText().toString();
+        String desc = holder.descriptionView.getText().toString();
+        boolean isFavorite = holder.isFavorite.isChecked();
+
+        Log.i(TAG + ".onSaveInstanceState",
+                String.format("Name = %s, desc = %s, favorite = %s", name, desc, isFavorite));
+
+        outState.putString(ARG_NAME, name);
+        outState.putString(ARG_DESCRIPTION, desc);
+        outState.putBoolean(ARG_FAVORITE, isFavorite);
+
+        super.onSaveInstanceState(outState);
     }
 
 

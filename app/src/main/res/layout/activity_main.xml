@@ -14,13 +14,19 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlayDarkActionBar"/>
 
-    <fragment
-        android:id="@+id/gridViewFragment"
-        android:name="com.example.danco.bonus1.fragment.GridViewFragment"
+    <FrameLayout
+        android:id="@+id/fragmentHolder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/topLevelToolBar"
-        tools:layout="@layout/fragment_grid_view"
-        />
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/gridViewFragment"
+            android:name="com.example.danco.bonus1.fragment.GridViewFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/topLevelToolBar"
+            tools:layout="@layout/fragment_grid_view"
+            />
+    </FrameLayout>
 
 </RelativeLayout>

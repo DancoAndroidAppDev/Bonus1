@@ -3,6 +3,7 @@ package com.example.danco.bonus1.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.opengl.ETC1;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -45,30 +46,49 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-
-        haveDetailFragment = findViewById(R.id.gridDetailContainer) != null;
-
-        GridViewFragment fragment = (GridViewFragment)
-                getSupportFragmentManager().findFragmentById(R.id.gridViewFragment);
-        fragment.setHighlightList(haveDetailFragment);
-
-        if (savedInstanceState == null) {
-            fragment.setValues(data);
-        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.topLevelToolBar);
         setSupportActionBar(toolbar);
 
         if (savedInstanceState != null) {
+            String name = savedInstanceState.getString(GridDetailFragment.ARG_NAME);
+            String desc = savedInstanceState.getString(GridDetailFragment.ARG_DESCRIPTION);
+            boolean isFavorite = savedInstanceState.getBoolean(GridDetailFragment.ARG_FAVORITE);
+
+            Log.i(TAG + ".onCreate", String.format("Name = %s, desc = %s, favorite = %s",
+                    name, desc, isFavorite));
+
+
+            if (!getResources().getBoolean(R.bool.multiFragment)) {
+                Intent intent = GridDetailActivity.buildIntent(this, name, desc, isFavorite);
+                startActivityForResult(intent, UPDATE_DETAILS);
+                return;
+            }
+        }
+
+        haveDetailFragment = findViewById(R.id.gridDetailContainer) != null;
+
+        GridViewFragment fragment = (GridViewFragment)
+                getSupportFragmentManager().findFragmentById(R.id.gridViewFragment);
+        fragment.setHighlightList(true);
+
+        if (savedInstanceState == null) {
+            fragment.setValues(data);
+        }
+
+        if (savedInstanceState != null) {
             selectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION, selectedPosition);
+
+            Log.i(TAG + ".onCreate", String.format("SelectedPosition = %d", selectedPosition));
         }
 
         if (haveDetailFragment) {
             GridDetailFragment frag = (GridDetailFragment)
                     getSupportFragmentManager().findFragmentByTag(DETAIL_FRAGMENT);
             if (frag == null) {
-                frag = GridDetailFragment.newInstance(data.get(0));
+                frag = GridDetailFragment.newInstance(data.get(selectedPosition));
                 getSupportFragmentManager()
                         .beginTransaction()
                         .add(R.id.gridDetailContainer, frag, DETAIL_FRAGMENT)

@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class GridAdapter extends ArrayAdapter<String> {
 
-    // Per docs, first view type must start at 0
+    // Per docs, first view type must start at 0 and increment by 1
     private static final int DEFAULT_VIEW_TYPE = 0;
 
     public GridAdapter(Context context, List<String> objects) {
@@ -43,7 +43,7 @@ public class GridAdapter extends ArrayAdapter<String> {
 
         if (view == null) {
             view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.grid_item, parent, false);
+                    R.layout.grid_detail_item, parent, false);
             // Using a view holder as adapter views are recycled. Only
             // need to create a view if the convert view is null
             view.setTag(new ViewHolder(view));
@@ -60,6 +60,8 @@ public class GridAdapter extends ArrayAdapter<String> {
         final TextView title;
 
         ViewHolder(View view) {
+            //findViewById is potentially expensive as it may execute 1 to n loops depending
+            // on how deep the target is on the view hierarchy each time it is called.
             image = (ImageView) view.findViewById(R.id.image);
             title = (TextView) view.findViewById(R.id.title);
         }
