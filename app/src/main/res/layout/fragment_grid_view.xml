@@ -19,6 +19,7 @@
         android:paddingStart="@dimen/grid_view_horizontalSpacing"
         android:stretchMode="columnWidth"
         android:verticalSpacing="@dimen/grid_view_verticalSpacing"
+        android:listSelector="@drawable/grid_item_selector"
         tools:listitem="@layout/grid_item" />
 
 </FrameLayout>

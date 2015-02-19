@@ -59,6 +59,8 @@ public class MainActivity extends ActionBarActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.topLevelToolBar);
         setSupportActionBar(toolbar);
 
+        haveDetailFragment = findViewById(R.id.gridDetailContainer) != null;
+
         if (savedInstanceState != null) {
             String name = savedInstanceState.getString(GridDetailFragment.ARG_NAME);
             String desc = savedInstanceState.getString(GridDetailFragment.ARG_DESCRIPTION);
@@ -67,15 +69,13 @@ public class MainActivity extends ActionBarActivity
             Log.i(TAG + ".onCreate", String.format("Name = %s, desc = %s, favorite = %s",
                     name, desc, isFavorite));
 
-
-            if (!getResources().getBoolean(R.bool.multiFragment)) {
+            if (!getResources().getBoolean(R.bool.multiFragment) && name != null) {
+                // I only want to do this if we were landscape and are rotating to portrait
                 Intent intent = GridDetailActivity.buildIntent(this, name, desc, isFavorite);
                 startActivityForResult(intent, UPDATE_DETAILS);
                 return;
             }
         }
-
-        haveDetailFragment = findViewById(R.id.gridDetailContainer) != null;
 
         GridViewFragment fragment = (GridViewFragment)
                 getSupportFragmentManager().findFragmentById(R.id.gridViewFragment);
