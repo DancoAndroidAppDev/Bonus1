@@ -67,8 +67,12 @@ public class GridDetailActivity extends ActionBarActivity
 
     @Override
     public void onSubmitDetails(String name, String description, boolean isFavorite) {
-        MainActivity main = new MainActivity();
-        main.onSubmitDetails(name, description, isFavorite);
+        Intent data = new Intent();
+        data.putExtra(EXTRA_NAME, name);
+        data.putExtra(EXTRA_DESCRIPTION, description);
+        data.putExtra(EXTRA_FAVORITE, isFavorite);
+        setResult(Activity.RESULT_OK, data);
+        finish();
     }
 
 

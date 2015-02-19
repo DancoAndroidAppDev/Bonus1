@@ -1,6 +1,7 @@
 package com.example.danco.bonus1.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.opengl.ETC1;
@@ -40,6 +41,12 @@ public class MainActivity extends ActionBarActivity
         for (int i = 0; i < 30; ++i) {
             data.add("Grid Item " + (i + 1));
         }
+    }
+
+
+    public static Intent buildIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
     }
 
 
@@ -123,6 +130,10 @@ public class MainActivity extends ActionBarActivity
                 Log.i(TAG, String.format("Received description: '%s' and favorite state = %s",
                         data.getStringExtra(GridDetailActivity.EXTRA_DESCRIPTION),
                         data.getBooleanExtra(GridDetailActivity.EXTRA_FAVORITE, false)));
+                String name = data.getStringExtra(GridDetailActivity.EXTRA_NAME);
+                String desc = data.getStringExtra(GridDetailActivity.EXTRA_DESCRIPTION);
+                boolean isFavorite = data.getBooleanExtra(GridDetailActivity.EXTRA_FAVORITE, false);
+                onSubmitDetails(name, desc, isFavorite);
             } else if (requestCode == CONFIRM_DETAILS) {
                 Log.i(TAG, "User confirmed details");
             }
