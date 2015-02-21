@@ -3,16 +3,23 @@ package com.example.danco.bonus1.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.opengl.ETC1;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.OrientationEventListener;
+import android.view.Surface;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 
 import com.example.danco.bonus1.R;
@@ -44,6 +51,8 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+    private OrientationEventListener orientationEventListener;
+
     public static Intent buildIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
@@ -62,18 +71,36 @@ public class MainActivity extends ActionBarActivity
         haveDetailFragment = findViewById(R.id.gridDetailContainer) != null;
 
         if (savedInstanceState != null) {
-            String name = savedInstanceState.getString(GridDetailFragment.ARG_NAME);
-            String desc = savedInstanceState.getString(GridDetailFragment.ARG_DESCRIPTION);
-            boolean isFavorite = savedInstanceState.getBoolean(GridDetailFragment.ARG_FAVORITE);
+            final String name = savedInstanceState.getString(GridDetailFragment.ARG_NAME);
+            final String desc = savedInstanceState.getString(GridDetailFragment.ARG_DESCRIPTION);
+            final boolean isFavorite = savedInstanceState.getBoolean(
+                    GridDetailFragment.ARG_FAVORITE);
 
             Log.i(TAG + ".onCreate", String.format("Name = %s, desc = %s, favorite = %s",
                     name, desc, isFavorite));
 
-            if (!getResources().getBoolean(R.bool.multiFragment) && name != null) {
-                // I only want to do this if we were landscape and are rotating to portrait
-                Intent intent = GridDetailActivity.buildIntent(this, name, desc, isFavorite);
-                startActivityForResult(intent, UPDATE_DETAILS);
-                return;
+            // I only want to do this if we were landscape and are rotating to portrait
+            orientationEventListener = new OrientationEventListener(this,
+                    SensorManager.SENSOR_DELAY_NORMAL) {
+                @Override
+                public void onOrientationChanged(int orientation) {
+                    Display display = ((WindowManager)
+                            getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+                    int rotation = display.getRotation();
+                    if (rotation == Surface.ROTATION_0) {
+                        if (!getResources().getBoolean(R.bool.multiFragment) ) {
+                            Intent intent = GridDetailActivity.buildIntent(
+                                    getApplicationContext(), name, desc, isFavorite);
+                            startActivityForResult(intent, UPDATE_DETAILS);
+                            return;
+                        }
+                    }
+                }
+            };
+
+            if (orientationEventListener.canDetectOrientation()) {
+                orientationEventListener.enable();
             }
         }
 

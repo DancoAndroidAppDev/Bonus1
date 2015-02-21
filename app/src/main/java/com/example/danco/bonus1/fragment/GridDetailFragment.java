@@ -2,6 +2,7 @@ package com.example.danco.bonus1.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -121,6 +122,17 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
 
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            name = savedInstanceState.getString(ARG_NAME);
+            description = savedInstanceState.getString(ARG_DESCRIPTION);
+            isFavorite = savedInstanceState.getBoolean(ARG_FAVORITE);
+        }
+    }
+
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.isFavoriteGrid) {
             CheckedTextView checkedTextView = (CheckedTextView)
@@ -212,7 +224,7 @@ public class GridDetailFragment extends Fragment implements View.OnClickListener
             listener = (GridDetailListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnSubmitDetailsListener");
+                    + " must implement GridDetailListener");
         }
     }
 
